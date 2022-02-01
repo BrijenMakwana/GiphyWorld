@@ -1,15 +1,45 @@
-import { StyleSheet } from 'react-native';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { StyleSheet,Dimensions, FlatList } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
+import GiphyItem from '../components/GiphyItem';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TabOneScreen() {
+
+  const [giphs,setGiphs] = useState([]);
+
+
+  useEffect(() => {
+    axios.get('')
+    .then((response)=> {
+    
+      setGiphs(response.data.data);
+      
+      })
+    .catch(function (error) {
+    // handle error
+    console.log(error);
+      })
+    .then(function () {
+    // always executed
+    });
+    }, []);
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <FlatList
+        data={giphs}
+        renderItem={({item})=> <GiphyItem giphs={item}/>}
+        keyExtractor={item=>item.id}
+        snapToAlignment="start"
+        decelerationRate={"fast"}
+        snapToInterval={Dimensions.get("window").height}
+        showsVerticalScrollIndicator={false}
+      />
+     
     </View>
   );
 }
@@ -18,7 +48,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    width: "100%",
+    justifyContent: "center"
+    
   },
   title: {
     fontSize: 20,
