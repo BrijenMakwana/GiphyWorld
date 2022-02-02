@@ -51,6 +51,7 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <SearchBar 
+            placeholder="search here"
             value={searchText} 
             onChangeText={(text) => setSearchText(text)} 
             onSubmit={getSearchGiphs}
@@ -66,7 +67,6 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
     backgroundColor: "#fff",
     
   }

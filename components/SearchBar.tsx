@@ -3,6 +3,7 @@ import React from 'react';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 
 export type SearchBarProps = {
+    placeholder: string;
     value: string;
     onChangeText: (text: string) => void;
     onSubmit: () => void;
@@ -14,7 +15,7 @@ const SearchBar = (props: SearchBarProps) => {
     <SafeAreaView style={styles.searchContainer}>
         <Feather name="search" size={24} color="#E94560"/>
         <TextInput
-          placeholder='search here'
+          placeholder={props.placeholder}
           value={props.value}
           onChangeText={props.onChangeText}
           style={styles.input}
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
     borderColor: "#E94560",
     borderRadius: 50,
     alignSelf: "center",
-    flex: 1,
     marginHorizontal: 10,
     marginTop: Platform.OS === "android" ? 50 : 0,
     
