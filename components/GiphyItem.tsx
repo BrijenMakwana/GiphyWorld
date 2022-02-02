@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, Image, Dimensions, SafeAreaView, Pressable } from 'react-native';
 import React from 'react';
+
 
 export type GiphyItemProps ={
     giphs:{
@@ -13,18 +14,21 @@ export type GiphyItemProps ={
     }
 }
 
+
 const GiphyItem = (props: GiphyItemProps) => {
+
+   
   return (
     <SafeAreaView style={styles.container}>
         <Text style={styles.title}>{props.giphs.title}</Text>
-        <View style={styles.imageContaiber}>
+        <Pressable style={styles.imageContaiber}>
             <Image
                 source={{
                     uri: props.giphs.images.original.url
                 }}
                 style={styles.image}
             />
-        </View>
+        </Pressable>
         
     </SafeAreaView>
   );

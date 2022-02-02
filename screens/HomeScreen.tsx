@@ -1,27 +1,20 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { StyleSheet,FlatList, Dimensions,SafeAreaView } from 'react-native';
+import { StyleSheet,Dimensions, FlatList, SafeAreaView } from 'react-native';
+
 
 import GiphyItem from '../components/GiphyItem';
-import SearchBar from '../components/SearchBar';
 
 
-export default function TabTwoScreen() {
+export default function HomeScreen() {
+
   const [giphs,setGiphs] = useState([]);
-  const [searchText,setSearchText] = useState("diwali");
 
-  const getSearchGiphs = () => {
-    axios.get('',{
-      params:{
-        q: searchText,
-        limit: 50,
-        offset: 0,
-        rating: "g",
-        lang: "en"
-      }
-    })
+
+  useEffect(() => {
+    axios.get('')
     .then((response)=> {
-      // console.log(response.data.data);
+    
       setGiphs(response.data.data);
       
       })
@@ -32,16 +25,11 @@ export default function TabTwoScreen() {
     .then(function () {
     // always executed
     });
-  }
-
-  const clearSearch = () => {
-    setSearchText("");
-    setGiphs([]);
-  }
+    }, []);
   
   return (
     <SafeAreaView style={styles.container}>
-       <FlatList
+      <FlatList
         data={giphs}
         renderItem={({item})=> <GiphyItem giphs={item}/>}
         keyExtractor={item=>item.id}
@@ -49,16 +37,8 @@ export default function TabTwoScreen() {
         decelerationRate={"fast"}
         snapToInterval={Dimensions.get("window").height}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <SearchBar 
-            value={searchText} 
-            onChangeText={(text) => setSearchText(text)} 
-            onSubmit={getSearchGiphs}
-            onClear={clearSearch}
-          />
-        }
       />
-      
+     
     </SafeAreaView>
   );
 }
@@ -66,8 +46,17 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
     backgroundColor: "#fff",
     
-  }
+    
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
 });
