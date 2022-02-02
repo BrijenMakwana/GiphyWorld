@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { EvilIcons, Feather, FontAwesome } from '@expo/vector-icons';
+import { EvilIcons, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -19,6 +19,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import TranslateScreen from '../screens/TranslateScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -82,6 +83,16 @@ function BottomTabNavigator() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => <Feather name="search" size={24} color={color} />,
+          headerShown: false
+        }}
+      />
+      <BottomTab.Screen
+        name="Translate"
+        component={TranslateScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="translate" size={24} color={color}/>,
+          headerShown: false
         }}
       />
     </BottomTab.Navigator>

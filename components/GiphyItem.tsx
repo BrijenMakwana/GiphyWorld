@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, SafeAreaView } from 'react-native';
 import React from 'react';
 
 export type GiphyItemProps ={
@@ -15,7 +15,7 @@ export type GiphyItemProps ={
 
 const GiphyItem = (props: GiphyItemProps) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
         <Text style={styles.title}>{props.giphs.title}</Text>
         <View style={styles.imageContaiber}>
             <Image
@@ -26,7 +26,7 @@ const GiphyItem = (props: GiphyItemProps) => {
             />
         </View>
         
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -35,16 +35,20 @@ export default GiphyItem;
 const styles = StyleSheet.create({
     container:{
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         padding: 10,
         backgroundColor: "#fff",
         height: Dimensions.get("window").height,
-        width: Dimensions.get("window").width
+        width: Dimensions.get("window").width,
+        
+        
+        
     },
     title:{
-        fontSize: 50,
+        fontSize: 40,
         fontWeight: "bold",
-        color: "#E94560"
+        color: "#E94560",
+        marginTop: 50
     },
     imageContaiber:{
         marginTop: 20,

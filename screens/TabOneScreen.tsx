@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { StyleSheet,Dimensions, FlatList } from 'react-native';
+import { StyleSheet,Dimensions, FlatList, SafeAreaView } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import GiphyItem from '../components/GiphyItem';
@@ -29,7 +29,7 @@ export default function TabOneScreen() {
     }, []);
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={giphs}
         renderItem={({item})=> <GiphyItem giphs={item}/>}
@@ -40,17 +40,15 @@ export default function TabOneScreen() {
         showsVerticalScrollIndicator={false}
       />
      
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: "#fff",
-    width: "100%",
-    justifyContent: "center"
+    
     
   },
   title: {

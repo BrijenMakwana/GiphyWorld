@@ -1,19 +1,27 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,FlatList, Dimensions,SafeAreaView } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import GiphyItem from '../components/GiphyItem';
+import SearchBar from '../components/SearchBar';
+
 
 export default function TabTwoScreen() {
   const [giphs,setGiphs] = useState([]);
-  const [searchText,setSearchText] = useState("");
+  const [searchText,setSearchText] = useState("diwali");
 
-
-  useEffect(() => {
-    axios.get('')
+  const getSearchGiphs = () => {
+    axios.get('',{
+      params:{
+        q: searchText,
+        limit: 50,
+        offset: 0,
+        rating: "g",
+        lang: "en"
+      }
+    })
     .then((response)=> {
-    
+      // console.log(response.data.data);
       setGiphs(response.data.data);
       
       })
@@ -24,28 +32,42 @@ export default function TabTwoScreen() {
     .then(function () {
     // always executed
     });
-    }, []);
+  }
+
+  const clearSearch = () => {
+    setSearchText("");
+    setGiphs([]);
+  }
+  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+    <SafeAreaView style={styles.container}>
+       <FlatList
+        data={giphs}
+        renderItem={({item})=> <GiphyItem giphs={item}/>}
+        keyExtractor={item=>item.id}
+        snapToAlignment="start"
+        decelerationRate={"fast"}
+        snapToInterval={Dimensions.get("window").height}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <SearchBar 
+            value={searchText} 
+            onChangeText={(text) => setSearchText(text)} 
+            onSubmit={getSearchGiphs}
+            onClear={clearSearch}
+          />
+        }
+      />
       
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    width: "100%",
+    backgroundColor: "#fff",
+    
+  }
 });
