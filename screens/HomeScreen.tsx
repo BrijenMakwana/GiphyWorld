@@ -11,9 +11,7 @@ export default function HomeScreen() {
   const [giphs,setGiphs] = useState([]);
 
   
-
-
-  useEffect(() => {
+  const getGiphs = () => {
     axios.get('')
     .then((response)=> {
     
@@ -27,6 +25,10 @@ export default function HomeScreen() {
     .then(function () {
     // always executed
     });
+  }
+
+  useEffect(() => {
+    getGiphs();
     }, []);
   
   return (

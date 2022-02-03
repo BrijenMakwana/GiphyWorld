@@ -21,7 +21,7 @@ const SearchBar = (props: SearchBarProps) => {
           style={styles.input}
           onSubmitEditing={props.onSubmit}
         />
-        <Pressable onPress={props.onClear}>
+        <Pressable onPress={props.onClear} style={styles.clear}>
           <MaterialIcons name="clear" size={24} color="#FF0000" />
         </Pressable>
         
@@ -50,4 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10
   },
+  clear:{
+    padding: 5
+  }
 });

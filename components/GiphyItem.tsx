@@ -48,6 +48,7 @@ const GiphyItem = (props: GiphyItemProps) => {
                     uri: props.giphs.images.original.url
                 }}
                 style={styles.image}
+                resizeMode= 'contain'
             />
             <Pressable style={styles.share} onPress={onShare}>
                 <FontAwesome name="share" size={24} color="#fff" />
@@ -74,13 +75,14 @@ const styles = StyleSheet.create({
         
     },
     title:{
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: "bold",
         color: "#E94560",
-        marginTop: 50
+        marginTop: 50,
+        marginHorizontal: 10
     },
     imageContaiber:{
-        marginTop: 50,
+        marginTop: 30,
         shadowOpacity: 0.5,
         elevation: 10,
         shadowColor: "#000",
