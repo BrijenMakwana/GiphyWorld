@@ -1,6 +1,7 @@
-import { StyleSheet, Text, Image, Dimensions, SafeAreaView, Pressable } from 'react-native';
+import { StyleSheet, Text, Image, Dimensions, SafeAreaView, Pressable, Share } from 'react-native';
 import React from 'react';
-
+import { FontAwesome } from '@expo/vector-icons';
+import { View } from './Themed';
 
 export type GiphyItemProps ={
     giphs:{
@@ -17,18 +18,42 @@ export type GiphyItemProps ={
 
 const GiphyItem = (props: GiphyItemProps) => {
 
+    // share the URL
+    const onShare = async () => {
+        try {
+          const result = await Share.share({
+            message: props.giphs.images.original.url
+          });
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+
    
   return (
     <SafeAreaView style={styles.container}>
         <Text style={styles.title}>{props.giphs.title}</Text>
-        <Pressable style={styles.imageContaiber}>
+        <View style={styles.imageContaiber}>
             <Image
                 source={{
                     uri: props.giphs.images.original.url
                 }}
                 style={styles.image}
             />
-        </Pressable>
+            <Pressable style={styles.share} onPress={onShare}>
+                <FontAwesome name="share" size={24} color="#fff" />
+            </Pressable>
+        </View>
+        
         
     </SafeAreaView>
   );
@@ -55,7 +80,7 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     imageContaiber:{
-        marginTop: 20,
+        marginTop: 50,
         shadowOpacity: 0.5,
         elevation: 10,
         shadowColor: "#000",
@@ -64,11 +89,20 @@ const styles = StyleSheet.create({
             width: 5
         },
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        padding: 10
     },
     image:{
         height: 300,
         width: 300,
         
+    },
+    share:{
+        position: "absolute",
+        top: -15,
+        right: 10,
+        backgroundColor: "#E94560",
+        padding: 10,
+        borderRadius: 10
     }
 });

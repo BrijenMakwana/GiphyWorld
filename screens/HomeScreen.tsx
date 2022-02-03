@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { StyleSheet,Dimensions, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet,Dimensions, FlatList, SafeAreaView} from 'react-native';
 
 
 import GiphyItem from '../components/GiphyItem';
@@ -9,6 +9,8 @@ import GiphyItem from '../components/GiphyItem';
 export default function HomeScreen() {
 
   const [giphs,setGiphs] = useState([]);
+
+  
 
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function HomeScreen() {
         snapToInterval={Dimensions.get("window").height}
         showsVerticalScrollIndicator={false}
       />
-     
+    
     </SafeAreaView>
   );
 }
