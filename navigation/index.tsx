@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { EvilIcons, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import {  Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,7 +13,7 @@ import { Entypo } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import TranslateScreen from '../screens/TranslateScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -59,7 +59,7 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
         tabBarInactiveTintColor: "lightgrey",
         tabBarStyle:{
-          backgroundColor: "#E94560"
+          backgroundColor: Colors[colorScheme].tint
         }
       }}>
       <BottomTab.Screen

@@ -1,16 +1,23 @@
-import { Dimensions, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
 import axios from 'axios';
 import GiphyItem from '../components/GiphyItem';
 import SearchBar from '../components/SearchBar';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
 const TranslateScreen = () => {
+    // id of a giph
     const [id,setId] = useState("");
+    // title of a giph
     const [title,setTitle] = useState("");
+    // image url of a giph
     const [url,setUrl] = useState("");
-
-
+    // user iinput
     const [translateText,setTranslateText] = useState("");
+
+    const colorScheme = useColorScheme();
+
 
     const getTranslatedGiphs = () => {
         axios.get('',{
@@ -36,7 +43,7 @@ const TranslateScreen = () => {
             });
     }
 
-    
+    // clear the user input and states
     const clearSearch = () => {
       setTranslateText("");
       setId("");
@@ -45,7 +52,10 @@ const TranslateScreen = () => {
     }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{
+      backgroundColor: Colors[colorScheme].background
+    }]}>
+      {/* search bar */}
       <SearchBar 
         placeholder="translate here"
         value={translateText} 
@@ -77,7 +87,6 @@ export default TranslateScreen;
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
       flex: 1
-      },
+    },
 });

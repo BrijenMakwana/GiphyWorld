@@ -4,12 +4,15 @@ import { StyleSheet,Dimensions, FlatList, SafeAreaView} from 'react-native';
 
 
 import GiphyItem from '../components/GiphyItem';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
 
 export default function HomeScreen() {
 
+  // storing all the giphs
   const [giphs,setGiphs] = useState([]);
-
+  const colorScheme = useColorScheme();
   
   const getGiphs = () => {
     axios.get('')
@@ -32,7 +35,10 @@ export default function HomeScreen() {
     }, []);
   
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{
+      backgroundColor: Colors[colorScheme].background
+    }]}>
+      {/* liist of giphs from the API */}
       <FlatList
         data={giphs}
         renderItem={({item})=> <GiphyItem giphs={item}/>}
@@ -50,9 +56,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    
-    
+  
   },
   title: {
     fontSize: 20,

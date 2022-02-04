@@ -1,6 +1,8 @@
-import { Platform, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, Pressable, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 import React from 'react';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 export type SearchBarProps = {
     placeholder: string;
@@ -11,9 +13,17 @@ export type SearchBarProps = {
 }
 
 const SearchBar = (props: SearchBarProps) => {
+
+  const colorScheme = useColorScheme();
+
   return (
-    <SafeAreaView style={styles.searchContainer}>
-        <Feather name="search" size={24} color="#E94560"/>
+    <SafeAreaView style={[styles.searchContainer,{
+      backgroundColor: Colors[colorScheme].background,
+      borderColor: Colors[colorScheme].tint
+    }]}>
+        {/* search icon */}
+        <Feather name="search" size={24} color={Colors[colorScheme].tint}/>
+        {/* search input */}
         <TextInput
           placeholder={props.placeholder}
           value={props.value}
@@ -21,6 +31,7 @@ const SearchBar = (props: SearchBarProps) => {
           style={styles.input}
           onSubmitEditing={props.onSubmit}
         />
+        {/* clear button */}
         <Pressable onPress={props.onClear} style={styles.clear}>
           <MaterialIcons name="clear" size={24} color="#FF0000" />
         </Pressable>
@@ -37,9 +48,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,
-    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: "#E94560",
     borderRadius: 50,
     alignSelf: "center",
     marginHorizontal: 10,

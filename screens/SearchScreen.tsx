@@ -1,14 +1,20 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet,FlatList, Dimensions,SafeAreaView } from 'react-native';
 
 import GiphyItem from '../components/GiphyItem';
 import SearchBar from '../components/SearchBar';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
 
 export default function SearchScreen() {
+  // storing all the giphs
   const [giphs,setGiphs] = useState([]);
+  // search text by user
   const [searchText,setSearchText] = useState("");
+
+  const colorScheme = useColorScheme();
 
   const getSearchGiphs = () => {
     axios.get('',{
@@ -34,13 +40,17 @@ export default function SearchScreen() {
     });
   }
 
+  // clear the search and state
   const clearSearch = () => {
     setSearchText("");
     setGiphs([]);
   }
   
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{
+      backgroundColor: Colors[colorScheme].background
+    }]}>
+      {/* list of giphs based on user search */}
        <FlatList
         data={giphs}
         renderItem={({item})=> <GiphyItem giphs={item}/>}
@@ -49,6 +59,7 @@ export default function SearchScreen() {
         decelerationRate={"fast"}
         snapToInterval={Dimensions.get("window").height}
         showsVerticalScrollIndicator={false}
+        // search bar
         ListHeaderComponent={
           <SearchBar 
             placeholder="search here"
@@ -67,7 +78,5 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    
   }
 });

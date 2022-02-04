@@ -1,7 +1,9 @@
 import { StyleSheet, Text, Image, Dimensions, SafeAreaView, Pressable, Share } from 'react-native';
 import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import useColorScheme from '../hooks/useColorScheme';
 import { View } from './Themed';
+import Colors from '../constants/Colors';
 
 export type GiphyItemProps ={
     giphs:{
@@ -17,6 +19,8 @@ export type GiphyItemProps ={
 
 
 const GiphyItem = (props: GiphyItemProps) => {
+
+  const colorScheme = useColorScheme();
 
     // share the URL
     const onShare = async () => {
@@ -40,9 +44,24 @@ const GiphyItem = (props: GiphyItemProps) => {
 
    
   return (
-    <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>{props.giphs.title}</Text>
-        <View style={styles.imageContaiber}>
+    <SafeAreaView 
+      style={[styles.container,{
+        backgroundColor: Colors[colorScheme].background
+      }]}
+    >
+      {/* title of the giph */}
+        <Text 
+          style={[styles.title,{
+            color: Colors[colorScheme].tint
+          }]}
+        >
+          {props.giphs.title}
+        </Text>
+        {/* iimage container */}
+        <View style={[styles.imageContaiber,{
+          shadowColor: Colors[colorScheme].shadow
+        }]}>
+          {/* giph */}
             <Image
                 source={{
                     uri: props.giphs.images.original.url
@@ -50,8 +69,14 @@ const GiphyItem = (props: GiphyItemProps) => {
                 style={styles.image}
                 resizeMode= 'contain'
             />
-            <Pressable style={styles.share} onPress={onShare}>
-                <FontAwesome name="share" size={24} color="#fff" />
+            {/* share button */}
+            <Pressable 
+              style={[styles.share,{
+                backgroundColor: Colors[colorScheme].tint
+              }]} 
+              onPress={onShare}
+            >
+              <FontAwesome name="share" size={24} color={Colors[colorScheme].background} />
             </Pressable>
         </View>
         
@@ -67,17 +92,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 10,
-        backgroundColor: "#fff",
         height: Dimensions.get("window").height,
         width: Dimensions.get("window").width,
-        
-        
-        
-    },
+      },
     title:{
         fontSize: 30,
         fontWeight: "bold",
-        color: "#E94560",
         marginTop: 50,
         marginHorizontal: 10
     },
@@ -85,7 +105,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         shadowOpacity: 0.5,
         elevation: 10,
-        shadowColor: "#000",
         shadowOffset: {
             height: 5,
             width: 5
@@ -103,7 +122,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: -15,
         right: 10,
-        backgroundColor: "#E94560",
         padding: 10,
         borderRadius: 10
     }
