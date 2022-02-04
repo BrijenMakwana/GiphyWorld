@@ -26,13 +26,11 @@ const TranslateScreen = () => {
           }
         })
             .then((response)=> {
-            console.log(response.data.data.images.original.url);
-            // setGiphs(response.data.data);
-            // console.log(giphs.id)
+            
             setId(response.data.data.id);
             setTitle(response.data.data.title);
             setUrl(response.data.data.images.original.url);
-            console.log(url);
+            
             })
             .catch(function (error) {
             // handle error
