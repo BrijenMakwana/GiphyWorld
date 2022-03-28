@@ -1,4 +1,4 @@
-# Tech News App
+# Giphy World
 
 <img src="https://github.com/BrijenMakwana/GiphyWorld/blob/main/assets/images/icon.png" width="200" height="200" style="border-radius:50px;">
 
